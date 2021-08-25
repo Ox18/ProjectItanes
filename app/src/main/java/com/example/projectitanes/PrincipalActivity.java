@@ -62,7 +62,6 @@ public class PrincipalActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     PaqueteRespuesta paqueteRespuesta = response.body();
                     ArrayList<Paquete> listaPaquete = paqueteRespuesta.getResults();
-                    Toast.makeText(PrincipalActivity.this, "Todo ok, is llegaron" + listaPaquete.size(), Toast.LENGTH_SHORT).show();
                     listaPaqueteAdapter.adicionarListaPaquete(listaPaquete);
 
                 }else {
