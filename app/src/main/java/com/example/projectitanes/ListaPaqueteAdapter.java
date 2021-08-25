@@ -1,13 +1,16 @@
 package com.example.projectitanes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -41,15 +44,18 @@ public class ListaPaqueteAdapter extends RecyclerView.Adapter<ListaPaqueteAdapte
         Paquete p = dataset.get(position);
         holder.nombreTextView.setText(p.getNombre());
         holder.costoTextView.setText(p.getCosto().toString() + " USD");
-
+        holder.code = p.getId();
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions.placeholder(R.drawable.ic_launcher_background);
+
 
         Glide.with(holder.photoImageView.getContext())
                 .load(p.getPhotoURI())
                 .centerCrop()
                 .apply(requestOptions)
                 .into(holder.photoImageView);
+
+        holder.setOnClickListener();
 
     }
 
@@ -63,17 +69,35 @@ public class ListaPaqueteAdapter extends RecyclerView.Adapter<ListaPaqueteAdapte
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
 
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        Context contexto;
+        private int code;
         private TextView nombreTextView;
         private TextView costoTextView;
         private ImageView photoImageView;
 
         public ViewHolder(View itemView){
             super(itemView);
+            contexto = itemView.getContext();
             photoImageView = (ImageView) itemView.findViewById(R.id.photoImageView);
             costoTextView = (TextView) itemView.findViewById(R.id.costoTextView);
             nombreTextView = (TextView) itemView.findViewById(R.id.nombreTextView);
+        }
+
+        void setOnClickListener(){
+            nombreTextView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch(view.getId()){
+                case R.id.nombreTextView:
+                    Intent intent = new Intent(contexto, DetalleActivity.class);
+                    intent.putExtra("paqueteCode", code);
+                    contexto.startActivity(intent);
+                    break;
+            }
         }
     }
 }

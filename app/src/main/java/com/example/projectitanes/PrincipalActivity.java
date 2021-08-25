@@ -2,6 +2,7 @@ package com.example.projectitanes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -40,9 +41,9 @@ public class PrincipalActivity extends AppCompatActivity {
         listaPaqueteAdapter = new ListaPaqueteAdapter();
         recyclerView.setAdapter(listaPaqueteAdapter);
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
-        recyclerView.setLayoutManager(layoutManager);
-
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setHasFixedSize(true);
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://18.118.195.116:5500/")
                 .addConverterFactory(GsonConverterFactory
