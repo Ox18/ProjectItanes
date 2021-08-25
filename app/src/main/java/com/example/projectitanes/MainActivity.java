@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         };
 
         Timer tiempo = new Timer();
-        tiempo.schedule(tarea, 1);
+        tiempo.schedule(tarea, 5000
+        );
     }
 
     private void setProgressValue(final int progress){

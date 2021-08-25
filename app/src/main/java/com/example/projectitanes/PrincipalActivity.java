@@ -40,7 +40,6 @@ public class PrincipalActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.recyclerViewPaquetes);
         listaPaqueteAdapter = new ListaPaqueteAdapter();
         recyclerView.setAdapter(listaPaqueteAdapter);
-        recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);

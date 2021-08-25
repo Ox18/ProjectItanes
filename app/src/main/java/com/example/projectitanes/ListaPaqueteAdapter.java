@@ -14,14 +14,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.projectitanes.models.Paquete;
 
 import java.util.ArrayList;
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
-
 
 public class ListaPaqueteAdapter extends RecyclerView.Adapter<ListaPaqueteAdapter.ViewHolder> {
 
@@ -37,13 +33,14 @@ public class ListaPaqueteAdapter extends RecyclerView.Adapter<ListaPaqueteAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_paquete, parent, false);
         return new ViewHolder(view);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Paquete p = dataset.get(position);
         holder.nombreTextView.setText(p.getNombre());
-        holder.code = p.getId();
+        holder.description = p.getDescripcion();
         holder.nombreTour = p.getNombre();
         holder.costoTextView.setText(p.getCosto().toString() + " USD");
         RequestOptions requestOptions = new RequestOptions();
@@ -73,7 +70,7 @@ public class ListaPaqueteAdapter extends RecyclerView.Adapter<ListaPaqueteAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         Context contexto;
-        private int code;
+        private String description;
         private TextView costoTextView;
         private String nombreTour;
         private TextView nombreTextView;
@@ -96,8 +93,8 @@ public class ListaPaqueteAdapter extends RecyclerView.Adapter<ListaPaqueteAdapte
             switch(view.getId()){
                 case R.id.nombreTextView:
                     Intent intent = new Intent(contexto, DetalleActivity.class);
-                    intent.putExtra("paqueteCode", code);
-                    intent.putExtra("nombreTour", nombreTour);
+                     intent.putExtra("nombreTour", nombreTour);
+                     intent.putExtra("description", description);
                     contexto.startActivity(intent);
                     break;
             }
