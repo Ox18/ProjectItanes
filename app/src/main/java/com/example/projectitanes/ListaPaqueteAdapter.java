@@ -43,8 +43,9 @@ public class ListaPaqueteAdapter extends RecyclerView.Adapter<ListaPaqueteAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Paquete p = dataset.get(position);
         holder.nombreTextView.setText(p.getNombre());
-        holder.costoTextView.setText(p.getCosto().toString() + " USD");
         holder.code = p.getId();
+        holder.nombreTour = p.getNombre();
+        holder.costoTextView.setText(p.getCosto().toString() + " USD");
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions.placeholder(R.drawable.ic_launcher_background);
 
@@ -73,15 +74,16 @@ public class ListaPaqueteAdapter extends RecyclerView.Adapter<ListaPaqueteAdapte
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         Context contexto;
         private int code;
-        private TextView nombreTextView;
         private TextView costoTextView;
+        private String nombreTour;
+        private TextView nombreTextView;
         private ImageView photoImageView;
 
         public ViewHolder(View itemView){
             super(itemView);
             contexto = itemView.getContext();
-            photoImageView = (ImageView) itemView.findViewById(R.id.photoImageView);
             costoTextView = (TextView) itemView.findViewById(R.id.costoTextView);
+            photoImageView = (ImageView) itemView.findViewById(R.id.photoImageView);
             nombreTextView = (TextView) itemView.findViewById(R.id.nombreTextView);
         }
 
@@ -95,6 +97,7 @@ public class ListaPaqueteAdapter extends RecyclerView.Adapter<ListaPaqueteAdapte
                 case R.id.nombreTextView:
                     Intent intent = new Intent(contexto, DetalleActivity.class);
                     intent.putExtra("paqueteCode", code);
+                    intent.putExtra("nombreTour", nombreTour);
                     contexto.startActivity(intent);
                     break;
             }
